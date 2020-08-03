@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AddTodoUI from './components/addTodoUI/';
 import FiltersTodoUI from './components/filtersTodoUI/';
 import ListTodoUI from './components/listTodoUI/';
 import {
+	initTodos,
 	addTodo,
 	completeTodo,
 	setVisibilityFilter,
@@ -12,6 +13,9 @@ import {
 
 function App() {
 	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(initTodos());
+	}, []);
 	const addNewTask = (value) => {
 		if(value.length > 3) {
 			dispatch(addTodo(value));

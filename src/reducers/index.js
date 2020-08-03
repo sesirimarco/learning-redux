@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
-import { mockTodos } from '../mockTodos';
 import { 
     ADD_TODO, 
     COMPLETE_TODO, 
     SET_VISIBILITY_FILTER, 
-    visibilityFilters
+    visibilityFilters,
+    INIT_TODOS
 } from '../actions';
+
+const initState = [];
 const { SHOW_ALL } = visibilityFilters;
 const visibilityFilter = (state = SHOW_ALL, action) => {
     switch (action.type) {
@@ -15,14 +17,16 @@ const visibilityFilter = (state = SHOW_ALL, action) => {
             return state;
     }
 };
-const todos = (state = mockTodos, action) => {
+const todos = (state = initState, action) => {
     switch(action.type) {
+        case INIT_TODOS:
+            return [...state, ...action.todos]
         case ADD_TODO:
             return [
                 ...state,
                 {
                     id: state.length + 1, 
-                    text: action.text,
+                    title: action.text,
                     completed: false
                 }
             ]
